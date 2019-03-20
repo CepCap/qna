@@ -7,7 +7,7 @@ feature 'User can look up created questions', %q{
 } do
 
   describe 'View all questions' do
-    let!(:questions) { create_list(:question, 3) }
+    given!(:questions) { create_list(:question, 3) }
 
     background { visit questions_path }
 
