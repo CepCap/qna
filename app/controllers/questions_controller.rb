@@ -5,8 +5,12 @@ class QuestionsController < ApplicationController
   expose :question
   expose :answer, -> { Answer.new }
 
+  def show
+    @author = current_user.is_author?(question) if user_signed_in?
+  end
+
   def create
-    @question = Question.create(question_params)
+    @question = current_user.created_questions.create(question_params)
     if @question.save
       redirect_to @question, notice: 'Your question successfully created.'
     else
@@ -23,8 +27,11 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question.destroy
-    redirect_to questions_path
+    if question.destroy
+      redirect_to questions_path, notice: 'Your question successfully deleted.'
+    else
+      render :question
+    end
   end
 
   private

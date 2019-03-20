@@ -1,3 +1,6 @@
+- if @author
+  = link_to 'Delete question', question, method: :delete
+
 h3= question.title
 p= question.body
 - question.answers.each do |answer|
