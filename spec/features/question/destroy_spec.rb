@@ -6,9 +6,10 @@ feature 'Author can delete created questions', %q{
   I'd like to be able to delete a question
 } do
 
+  given(:author) { create(:user) }
+  given(:question) { create(:question, author: author) }
+
   describe 'Author' do
-    given(:author) { create(:user) }
-    given(:question) { create(:question, author: author) }
 
     scenario 'presses delete' do
       sign_in(author)
