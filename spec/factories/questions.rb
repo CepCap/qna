@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :question do
-    title { "MyString" }
+    title { ('a'..'z').to_a.shuffle.join }
     body { "MyText" }
 
     trait :invalid do

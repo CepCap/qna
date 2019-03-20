@@ -1,0 +1,6 @@
+h3= question.title
+p= question.body
+- question.answers.each do |answer|
+  p= answer.body
+
+= render template: 'answers/new'
