@@ -15,15 +15,17 @@ feature 'Author can delete created questions', %q{
       sign_in(author)
       visit question_path(question)
 
-      expect(page).to have_content 'Delete question'
+      expect(page).to have_link 'Delete question'
       click_on 'Delete question'
       expect(page).to have_content 'Your question successfully deleted.'
     end
   end
 
-  scenario 'Non-author user wants to delete question' do
-    visit question_path(question)
+  describe 'Non-author user wants to delete question' do
+    scenario 'doesnt see delete button' do
+      visit question_path(question)
 
-    expect(page).to_not have_content 'Delete question'
+      expect(page).to_not have_link 'Delete question'
+    end
   end
 end

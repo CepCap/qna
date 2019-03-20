@@ -7,13 +7,13 @@ feature 'User or a guest can view answers for a question', %q{
 } do
 
   given!(:question) { create(:question) }
-  given!(:answer1) { create(:answer, question: question) }
-  given!(:answer2) { create(:answer, question: question) }
+  given!(:answers) { create_list(:answer, 3, :random_body, question: question) }
 
   scenario 'Visits question' do
     visit question_path(question)
-    expect(page).to have_content answer1.body
-    expect(page).to have_content answer2.body
+    answers.each do |answer|
+      expect(page).to have_content answer.body
+    end
   end
 
 end

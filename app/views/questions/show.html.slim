@@ -1,4 +1,4 @@
-- if @author
+- if current_user && current_user.is_author?(question)
   = link_to 'Delete question', question, method: :delete
 
 h3= question.title
