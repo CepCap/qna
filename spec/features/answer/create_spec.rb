@@ -24,7 +24,6 @@ feature 'User can create answer for a question', %q{
 
     scenario 'Answers a question with invalid answer' do
       click_on 'Answer'
-
       expect(page).to have_content "Body can't be blank"
     end
   end

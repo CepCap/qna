@@ -11,11 +11,8 @@ RSpec.describe AnswersController, type: :controller do
     before { login(user) }
 
     context 'with valid attributes' do
-      it 'saves a new answer in DB' do
-        expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(Answer, :count).by(1)
-      end
 
-      it 'saves user as an author' do
+      it 'saves new answer and assigns user as an author' do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(user.answers, :count).by(1)
       end
 
@@ -70,8 +67,8 @@ RSpec.describe AnswersController, type: :controller do
           expect(answer.body).to eq "MyText"
         end
 
-        it 're-renders edit' do
-          expect(response).to render_template :edit
+        it 're-renders question' do
+          expect(response).to render_template 'questions/show'
         end
       end
     end
@@ -111,7 +108,7 @@ RSpec.describe AnswersController, type: :controller do
     describe 'non-author user tries to delete answer' do
       before { login(user) }
 
-      it "doesnt delete an answer" do
+      it "doesnt deletes an answer" do
         expect { delete :destroy, params: { id: answer, question_id: question } }.to_not change(Answer, :count)
       end
 

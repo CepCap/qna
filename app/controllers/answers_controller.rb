@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
       if answer.update(answer_params)
         redirect_to answer.question, notice: 'Your answer successfully updated.'
       else
-        render :edit
+        render 'questions/show'
       end
     else
       redirect_to answer.question, notice: "You're not an author of this question"
@@ -31,7 +31,7 @@ class AnswersController < ApplicationController
       answer.destroy
       render 'questions/show', notice: 'Your answer successfully deleted.'
     else
-      render 'questions/show'
+      render 'questions/show', notice: "You're not an author"
     end
   end
 
