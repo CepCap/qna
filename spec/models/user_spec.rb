@@ -6,15 +6,18 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
 
-  it "should test if a User is an author of a question or an answer" do
-    author = create(:user)
-    user = create(:user)
-    question = create(:question, author: author)
-    answer = create(:answer, question: question, author: author)
+  describe 'is_author?' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question, author: user) }
 
-    expect(author.is_author?(question)).to be_truthy
-    expect(author.is_author?(answer)).to be_truthy
-    expect(user.is_author?(question)).to_not be_truthy
-    expect(user.is_author?(answer)).to_not be_truthy
+    it "should test if a User is an author" do
+      expect(user).to be_author_of(question)
+    end
+
+    it "should test if a different user is not an author" do
+      user2 = create(:user)
+      expect(user2).to_not be_author_of(question)
+    end
+
   end
 end

@@ -8,11 +8,15 @@ RSpec.describe AnswersController, type: :controller do
 
 
   describe 'POST #create' do
-    before { login(author) }
+    before { login(user) }
 
     context 'with valid attributes' do
       it 'saves a new answer in DB' do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(Answer, :count).by(1)
+      end
+
+      it 'saves user as an author' do
+        expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }.to change(user.answers, :count).by(1)
       end
 
       it 'saves the association to question' do
@@ -20,9 +24,9 @@ RSpec.describe AnswersController, type: :controller do
         expect(assigns(:answer).question_id).to eq question.id
       end
 
-      it 're-renders question' do
+      it 'redirects to question' do
         post :create, params: { answer: attributes_for(:answer), question_id: question }
-        expect(response).to render_template 'questions/show'
+        expect(response).to redirect_to question
       end
     end
 
@@ -53,7 +57,7 @@ RSpec.describe AnswersController, type: :controller do
 
         it 'redirects back to question' do
           patch :update, params: { id: answer, answer: { body: "New body" }, question_id: question }
-          expect(response).to redirect_to 'questions/show'
+          expect(response).to redirect_to answer.question
         end
       end
 
@@ -83,7 +87,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 're-render edit' do
-        expect(response).to render_template :edit
+        expect(response).to redirect_to answer.question
       end
     end
   end

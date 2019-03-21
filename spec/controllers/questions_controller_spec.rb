@@ -13,6 +13,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
       end
 
+      it 'saves user as an author' do
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(user.questions, :count).by(1)
+      end
+
       it 'redirects to new question' do
         post :create, params: { question: attributes_for(:question) }
         expect(response).to redirect_to assigns(:question)
