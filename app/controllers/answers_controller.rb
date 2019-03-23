@@ -13,9 +13,7 @@ class AnswersController < ApplicationController
 
   def update
     if current_user.author_of?(answer)
-      if answer.update(answer_params)
-        # redirect_to answer.question, notice: 'Your answer successfully updated.'
-      end
+      answer.update(answer_params)
     else
       redirect_to answer.question, notice: "You're not an author of this question"
     end
@@ -31,12 +29,12 @@ class AnswersController < ApplicationController
   def pick_best
     if current_user.author_of?(question)
       if best_answer
-        best_answer.best = nil
-        best_answer.save
+        Answer.choose_best(best_answer, answer)
+      else
+        answer.update(best: true)
       end
-      answer.best = true
-      answer.save
-      # redirect_to answer.question, notice: 'You have picked the best answer!'
+    else
+      redirect_to answer.question, notice: "You're not an author of this question"
     end
   end
 

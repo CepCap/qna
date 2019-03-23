@@ -4,7 +4,10 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  def is_best?
-    self.best
+  def self.choose_best(previous_best, answer)
+    ActiveRecord::Base.transaction do
+      previous_best.update!(best: false)
+      answer.update!(best: true)
+    end
   end
 end

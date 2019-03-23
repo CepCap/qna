@@ -21,21 +21,12 @@ RSpec.describe AnswersController, type: :controller do
         expect(assigns(:answer).question_id).to eq question.id
       end
 
-      # it 'redirects to question' do
-      #   post :create, params: { answer: attributes_for(:answer), question_id: question }
-      #   expect(response).to redirect_to question
-      # end
     end
 
     context 'with invalid attributes' do
       it 'doesnt save a new answer in DB' do
         expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }, format: :js }.to_not change(Answer, :count)
       end
-
-      # it 're-renders question' do
-      #   post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }, format: :js
-      #   expect(response).to render_template :create
-      # end
     end
   end
 
@@ -52,10 +43,10 @@ RSpec.describe AnswersController, type: :controller do
           expect(answer.body).to eq "New body"
         end
 
-        # it 'redirects back to question' do
-        #   patch :update, params: { id: answer, answer: { body: "New body" }, question_id: question }, format: :js
-        #   expect(response).to redirect_to answer.question
-        # end
+        it 'renders :update back to question' do
+          patch :update, params: { id: answer, answer: { body: "New body" }, question_id: question }, format: :js
+          expect(response).to render_template :update
+        end
       end
 
       context 'with invalid attributes'do
@@ -67,9 +58,9 @@ RSpec.describe AnswersController, type: :controller do
           expect(answer.body).to eq "MyText"
         end
 
-        # it 're-renders question' do
-        #   expect(response).to render_template 'questions/show'
-        # end
+        it 'renders :update' do
+          expect(response).to render_template :update
+        end
       end
     end
 
@@ -98,11 +89,6 @@ RSpec.describe AnswersController, type: :controller do
       it "deletes an answer" do
         expect { delete :destroy, params: { id: answer, question_id: question }, format: :js }.to change(Answer, :count).by(-1)
       end
-
-      # it "re-renders question" do
-      #   delete :destroy, params: { id: answer, question_id: question }, format: :js
-      #   expect(response).to render_template 'questions/show'
-      # end
     end
 
     describe 'non-author user tries to delete answer' do
@@ -111,29 +97,36 @@ RSpec.describe AnswersController, type: :controller do
       it "doesnt deletes an answer" do
         expect { delete :destroy, params: { id: answer, question_id: question }, format: :js }.to_not change(Answer, :count)
       end
-
-      # it "re-render question show" do
-      #   delete :destroy, params: { id: answer, question_id: question }, format: :js
-      #   expect(response).to render_template 'questions/show'
-      # end
     end
   end
 
   describe 'PATCH #pick_best' do
-    scenario 'non-Authenticated user tries to pick best answer' do
-      patch :pick_best, params: { id: answer, answer: { best: true }, question_id: question }, format: :js
-      answer.reload
+    describe 'non-Authenticated user' do
 
-      expect(answer.best).to_not eq true
+      before { patch :pick_best, params: { id: answer, answer: { best: true }, question_id: question }, format: :js }
+
+      scenario 'tries to pick best answer' do
+        answer.reload
+
+        expect(answer).to_not be_best
+      end
     end
 
-    scenario 'Authenticated non-author user tries to pick best answer' do
-      sign_in(user)
+    describe 'Authenticated non-author user' do
+      before do
+        sign_in(user)
+        patch :pick_best, params: { id: answer, answer: { best: true }, question_id: question }, format: :js
+      end
 
-      patch :pick_best, params: { id: answer, answer: { best: true }, question_id: question }, format: :js
-      answer.reload
+      scenario 'tries to pick best answer' do
+        answer.reload
 
-      expect(answer.best).to_not eq true
+        expect(answer).to_not be_best
+      end
+
+      scenario 're-renders question' do
+        expect(response).to redirect_to answer.question
+      end
     end
 
     scenario 'Authenticated author user tries to pick best answer' do
@@ -142,7 +135,7 @@ RSpec.describe AnswersController, type: :controller do
       patch :pick_best, params: { id: answer, answer: { best: true }, question_id: question }, format: :js
       answer.reload
 
-      expect(answer.best).to eq true
+      expect(answer).to be_best
     end
   end
 end
