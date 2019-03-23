@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :answer do
     body { "MyText" }
+    best { false }
     question
     association :author, factory: :user
 

@@ -1,0 +1,11 @@
+<% if best_answer %>
+  $('[data-answer-id="<%= best_answer.id %>"]').not('.edit-answer-link').html(
+    '<%= best_answer.body %>')
+  $('.best-answer').insertAfter('.best-answer-placeholder')
+  $('.best-answer').removeClass('best-answer')
+<% end %>
+
+$('.answer-id-<%= answer.id %>').addClass('best-answer')
+$('.best-answer').insertBefore('.best-answer-placeholder')
+$('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').html(
+  '<%= "#{ answer.body } - best answer " %>')

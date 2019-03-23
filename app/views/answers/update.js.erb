@@ -1,0 +1,7 @@
+$('.answer-errors').html("<%= render 'shared/errors', resource: answer %>");
+
+<% unless answer.errors.present? %>
+  $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').html('<%= answer.body %>');
+  $("form#edit-answer-<%= answer.id%>").addClass('hidden');
+  $(".edit-answer-link, [data-answer-id='<%= answer.id %>']").removeClass('hidden');
+<% end %>
