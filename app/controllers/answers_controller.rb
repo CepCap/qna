@@ -2,7 +2,6 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
 
   expose :question, -> { Question.find(params[:question_id]) }
-  expose :best_answer, -> { Answer.find_by(best: true) }
   expose :answer
 
   def create
