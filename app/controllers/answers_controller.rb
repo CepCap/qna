@@ -28,11 +28,7 @@ class AnswersController < ApplicationController
 
   def pick_best
     if current_user.author_of?(question)
-      if best_answer
-        Answer.choose_best(best_answer, answer)
-      else
-        answer.update(best: true)
-      end
+      answer.choose_best
     else
       redirect_to answer.question, notice: "You're not an author of this question"
     end

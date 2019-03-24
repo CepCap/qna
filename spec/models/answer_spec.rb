@@ -6,15 +6,20 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :body }
 
   describe '#choose_best' do
-    let(:previous_best) { create(:answer, best: true) }
-    let(:answer) { create(:answer) }
+    let!(:question) { create(:question) }
+    let!(:previous_best) { create(:answer, best: true, question: question) }
+    let!(:answer) { create(:answer, question: question) }
+
+    before { answer.choose_best }
 
     it 'should make previous best answer attribute "best" false' do
-      expect { Answer.choose_best(previous_best, answer) }.to change(previous_best, :best).from(true).to(false)
+      previous_best.reload
+      expect(previous_best).to_not be_best
     end
 
     it 'should make new best answer attribute "best" true' do
-      expect { Answer.choose_best(previous_best, answer) }.to change(answer, :best).from(false).to(true)
+      answer.reload
+      expect(answer).to be_best
     end
   end
 end

@@ -1,11 +1,12 @@
-<% if best_answer %>
-  $('[data-answer-id="<%= best_answer.id %>"]').not('.edit-answer-link').html(
-    '<%= best_answer.body %>')
-  $('.best-answer').insertAfter('.best-answer-placeholder')
-  $('.best-answer').removeClass('best-answer')
-<% end %>
+if ($('.best-answer').not('.row').data('answerId') > 0) {
+  var previousBestId = $('.best-answer').not('.row').data('answerId');
+  var previousBestBody = $('[data-answer-id=' + previousBestId + ']').html();
+  $('[data-answer-id=' + previousBestId + ']').not('.edit-answer-link').html(previousBestBody.replace('- best answer', ''));
+  $('.best-answer').insertAfter('.best-answer-placeholder');
+  $('.best-answer').removeClass('best-answer');
+};
 
-$('.answer-id-<%= answer.id %>').addClass('best-answer')
-$('.best-answer').insertBefore('.best-answer-placeholder')
+$('.answer-id-<%= answer.id %>').addClass('best-answer');
+$('.best-answer').insertBefore('.best-answer-placeholder');
 $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').html(
-  '<%= "#{ answer.body } - best answer " %>')
+  '<%= "#{ answer.body } - best answer " %>');
