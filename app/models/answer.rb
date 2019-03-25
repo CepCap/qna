@@ -5,14 +5,10 @@ class Answer < ApplicationRecord
   validates :body, presence: true
 
   def choose_best
-    previous_best = Answer.find_by(best: true, question: self.question)
-    if previous_best
-      ActiveRecord::Base.transaction do
-        self.update!(best: true)
-        previous_best.update!(best: false)
-      end
-    else
+    previous_best = question.answers.find_by(best: true)
+    ActiveRecord::Base.transaction do
       self.update!(best: true)
+      previous_best.update!(best: false) if previous_best
     end
   end
 end
