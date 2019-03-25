@@ -19,6 +19,7 @@ gem 'decent_exposure', '3.0.0'
 gem 'slim-rails'
 gem 'devise'
 gem 'bootstrap'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
