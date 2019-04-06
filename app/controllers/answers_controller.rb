@@ -25,6 +25,12 @@ class AnswersController < ApplicationController
     end
   end
 
+  def delete_file
+    if current_user.author_of?(answer)
+      answer.delete_file(params['delete_file'])
+    end
+  end
+
   def pick_best
     if current_user.author_of?(question)
       answer.choose_best
@@ -36,6 +42,6 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body, files: [])
   end
 end

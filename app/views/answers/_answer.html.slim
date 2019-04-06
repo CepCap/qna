@@ -1,6 +1,14 @@
 = content_tag(:p, "#{answer.body} #{"- best answer" if answer.best?}",
   class: "answer-id-#{answer.id}#{" best-answer" if answer.best?}", data: { answer_id: answer.id } )
 
+- if answer.files.attached?
+  - answer.files.each do |file|
+    p
+      = link_to file.filename.to_s, url_for(file)
+      - if current_user&.author_of?(answer)
+        p= link_to 'Delete file', delete_file_answer_path(id: answer.id, delete_file: file.filename.to_s), method: :patch, remote: true
+        br
+
 div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 
   - if current_user&.author_of?(answer)
@@ -9,8 +17,12 @@ div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
     p= link_to 'Delete', answer, method: :delete, remote: true
 
     = form_with model: answer, class: "hidden", html: { id: "edit-answer-#{answer.id}" } do |f|
-      = f.label :body, 'Your answer'
-      = f.text_area :body
+      p
+        = f.label :body, 'Your answer'
+        = f.text_area :body
+      p
+        = f.label :files
+        = f.file_field :files, multiple: true
       = f.submit 'Save'
 
   - if current_user&.author_of?(question)

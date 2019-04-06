@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.author_of? question
+    if current_user.author_of?(question)
       if question.update(question_params)
         redirect_to question
       else
@@ -35,9 +35,15 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def delete_file
+    if current_user.author_of?(question)
+      question.delete_file(params['delete_file'])
+    end
+  end
+
   private
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end

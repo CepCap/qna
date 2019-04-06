@@ -22,4 +22,15 @@ RSpec.describe Answer, type: :model do
       expect(answer).to be_best
     end
   end
+
+  describe '#delete_file' do
+    let(:answer) { create(:answer) }
+
+    it 'should delete one attached file' do
+      answer.files.attach(io: File.open("#{Rails.root}/spec/rails_helper.rb"), filename: 'rails_helper.rb')
+      answer.files.attach(io: File.open("#{Rails.root}/spec/spec_helper.rb"), filename: 'spec_helper.rb')
+      expect { answer.delete_file('rails_helper.rb') }.to change(answer.files, :count).by(-1)
+    end
+  end
+
 end

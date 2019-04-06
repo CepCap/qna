@@ -1,9 +1,13 @@
 - if current_user&.author_of?(question)
-  = link_to 'Delete question', question, method: :delete
+  p= link_to 'Delete question', question, method: :delete
+  p= link_to 'Edit question', edit_question_path(question) 
 
 h1= question.title
 h5= question.body
 br
+
+- if question.files.attached?
+  = render 'link_to_files'
 
 .answer-errors
 
