@@ -25,12 +25,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  def delete_file
-    if current_user.author_of?(answer)
-      answer.delete_file(params['delete_file'])
-    end
-  end
-
   def pick_best
     if current_user.author_of?(question)
       answer.choose_best

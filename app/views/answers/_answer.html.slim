@@ -6,8 +6,7 @@
     p
       = link_to file.filename.to_s, url_for(file)
       - if current_user&.author_of?(answer)
-        p= link_to 'Delete file', delete_file_answer_path(id: answer.id, delete_file: file.filename.to_s), method: :patch, remote: true
-        br
+        p= link_to 'Delete file', attachment_path(id: file.id), method: :delete, remote: true
 
 div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 

@@ -13,8 +13,4 @@ class Answer < ApplicationRecord
       previous_best.update!(best: false) if previous_best
     end
   end
-
-  def delete_file(delete_file)
-    files.each { |file| file.purge if file.filename.to_s == delete_file }
-  end
 end

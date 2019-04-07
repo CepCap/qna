@@ -35,12 +35,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def delete_file
-    if current_user.author_of?(question)
-      question.delete_file(params['delete_file'])
-    end
-  end
-
   private
 
   def question_params

@@ -7,7 +7,4 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
-  def delete_file(delete_file)
-    files.each { |file| file.purge if file.filename.to_s == delete_file }
-  end
 end
