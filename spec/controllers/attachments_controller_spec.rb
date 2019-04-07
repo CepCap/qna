@@ -12,7 +12,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
     describe 'Unauthorized user' do
       it 'tries to delete an attachment' do
-        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count).by(-1)
+        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count)
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'tries to delete an attachment' do
-        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count).by(-1)
+        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count)
       end
     end
 
