@@ -1,7 +1,9 @@
 class AttachmentsController < ApplicationController
+  expose :attachment, -> { ActiveStorage::Attachment.find(params[:id]) }
+
   def destroy
-    if current_user.author_of?(record)
-      record.files.each { |file| file.purge if file.filename.to_s == params['attachment_id'] }
+    if current_user.author_of?(attachment.record)
+      attachment.record.files.each { |file| file.purge if file.id == params['id'] }
     end
   end
 end
