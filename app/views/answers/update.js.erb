@@ -4,4 +4,6 @@ $('.answer-errors').html("<%= render 'shared/errors', resource: answer %>");
   $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').html('<%= answer.body %>');
   $("form#edit-answer-<%= answer.id%>").addClass('hidden');
   $(".edit-answer-link, [data-answer-id='<%= answer.id %>']").removeClass('hidden');
+
+  $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').append('<%= render "link_to_files" %>');
 <% end %>

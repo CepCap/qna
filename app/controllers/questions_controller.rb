@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.author_of? question
+    if current_user.author_of?(question)
       if question.update(question_params)
         redirect_to question
       else
@@ -38,6 +38,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end
