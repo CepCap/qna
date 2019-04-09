@@ -4,9 +4,9 @@
 - if answer.files.attached?
   - answer.files.each do |file|
     p
-      = link_to file.filename.to_s, url_for(file)
+      = link_to file.filename.to_s, url_for(file), class: 'attachment'
       - if current_user&.author_of?(answer)
-        p= link_to 'Delete file', attachment_path(id: file.id), method: :delete, remote: true
+        p= link_to 'Delete file', attachment_path(id: file.id), method: :delete, remote: true, class: 'attachment'
 
 div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 
