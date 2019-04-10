@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :attachments, shallow: true, only: %i[destroy]
+  resources :attachments, only: %i[destroy]
+  resources :links, only: %i[destroy]
 
   resources :questions do
 
