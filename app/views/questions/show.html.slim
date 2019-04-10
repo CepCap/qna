@@ -5,6 +5,7 @@
 
 h1= question.title
 h5= question.body
+p= 'Award available!' if question.award.present?
 br
 .question_links
   -question.links.each do |link|

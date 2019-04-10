@@ -27,6 +27,7 @@ class AnswersController < ApplicationController
 
   def pick_best
     if current_user.author_of?(question)
+      answer.author.give_award(question.award)
       answer.choose_best
     else
       redirect_to answer.question, notice: "You're not an author of this question"

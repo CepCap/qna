@@ -6,9 +6,16 @@ class User < ApplicationRecord
 
   has_many :questions, class_name: 'Question', foreign_key: :author_id
   has_many :answers, class_name: 'Answer', foreign_key: :author_id
+  has_many :awards
 
   def author_of?(instance)
     self.id == instance.author_id
   end
 
+  def give_award(award)
+    if award.present?
+      awards << award
+      award.update!(user: self)
+    end
+  end
 end

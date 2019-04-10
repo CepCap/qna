@@ -18,6 +18,16 @@ RSpec.describe User, type: :model do
       user2 = create(:user)
       expect(user2).to_not be_author_of(question)
     end
+  end
 
+  describe 'give_award' do
+    let!(:user) { create(:user) }
+    let!(:question) { create(:question) }
+    let!(:award) { create(:award, question: question) }
+
+    it 'should give user an award' do
+      user.give_award(award)
+      expect(award.user_id).to eq user.id
+    end
   end
 end
