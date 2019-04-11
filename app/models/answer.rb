@@ -14,6 +14,7 @@ class Answer < ApplicationRecord
     previous_best = question.answers.find_by(best: true)
     ActiveRecord::Base.transaction do
       self.update!(best: true)
+      author.awards << question.award if question.award.present?
       previous_best.update!(best: false) if previous_best
     end
   end

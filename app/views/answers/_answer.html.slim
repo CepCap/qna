@@ -5,7 +5,7 @@
   p Links:
   p
     - answer.links.each do |link|
-      = content_tag(:p, '', class: "link-id-#{link.id}")
+      p class="link-id-#{link.id}"
         -if link.to_gist?
           = render partial: 'links/gist', locals: { link: link }
         -else
@@ -26,7 +26,7 @@ div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 
     p= link_to 'Delete', answer, method: :delete, remote: true
 
-    =content_tag(:div, '', class: 'hidden', id: "edit-answer-#{answer.id}" )
+    div class='hidden' id="edit-answer-#{answer.id}"
       =render partial: 'answers/form', locals: { answer: answer, question: question }
 
   - if current_user&.author_of?(question)
