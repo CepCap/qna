@@ -10,7 +10,7 @@
           = render partial: 'links/gist', locals: { link: link }
         -else
           = link_to link.name, link.url
-        = link_to 'Delete link', link_path(id: link.id, parent_id: answer.id), method: :delete, remote: true, class: "link-id-#{link.id}"
+        = link_to 'Delete link', link_path(id: link.id), method: :delete, remote: true, class: "link-id-#{link.id}"
 
 - if answer.files.attached?
   - answer.files.each do |file|
@@ -26,7 +26,7 @@ div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 
     p= link_to 'Delete', answer, method: :delete, remote: true
 
-    div class='hidden' id="edit-answer-#{answer.id}"
+    div class='hidden edit-answer' id="edit-answer-#{answer.id}" data-edit-id="#{answer.id}"
       =render partial: 'answers/form', locals: { answer: answer, question: question }
 
   - if current_user&.author_of?(question)

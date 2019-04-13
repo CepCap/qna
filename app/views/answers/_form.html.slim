@@ -1,9 +1,9 @@
 .answer-errors
   = render 'shared/errors', resource: @answer
 
-= form_with model: answer, class:'answer-create' do |f|
+= form_with model: answer, class:"answer-create" do |f|
   p
-  = f.label :body
+  = f.label :body, 'Body'
   = f.text_area :body
   p
   = f.label :files
@@ -14,4 +14,4 @@
       = render 'links/nested_form', f: link
     .links
       = link_to_add_association 'add link', f, :links, partial: 'links/nested_form'
-  = f.submit 'Answer'
+  = f.submit 'Save'

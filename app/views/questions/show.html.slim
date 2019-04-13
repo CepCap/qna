@@ -14,7 +14,7 @@ br
         = render partial: 'links/gist', locals: { link: link }
       -else
         = link_to link.name, link.url
-      = link_to 'Delete link', link_path(id: link.id, parent_id: question.id), method: :delete, remote: true, class: "link-id-#{link.id}"
+      = link_to 'Delete link', link_path(id: link.id), method: :delete, remote: true, class: "link-id-#{link.id}"
 
 
 - if question.files.attached?
