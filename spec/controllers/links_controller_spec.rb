@@ -11,12 +11,14 @@ RSpec.describe LinksController, type: :controller do
       sign_in(author)
 
       expect { delete :destroy, params: { id: link.id }, format: :js }.to change(Link, :count).by(-1)
+      expect(response).to render_template :destroy
     end
 
     scenario 'non-author user doesnt deletes link' do
       sign_in(user)
 
       expect { delete :destroy, params: { id: link.id }, format: :js }.to_not change(Link, :count)
+      expect(response).to render_template :destroy
     end
   end
 end
