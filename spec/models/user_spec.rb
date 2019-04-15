@@ -18,6 +18,5 @@ RSpec.describe User, type: :model do
       user2 = create(:user)
       expect(user2).to_not be_author_of(question)
     end
-
   end
 end

@@ -10,5 +10,21 @@
   p
   = f.label :files
   = f.file_field :files, multiple: true
+
+  p Award for the best answer:
   p
-  = f.submit 'Ask'
+    = f.fields_for :award do |a|
+      p
+        = a.label :name, 'Award name'
+        = a.text_field :name
+      p
+        = a.label :image, 'Award image'
+        = a.file_field :image
+
+  p Links:
+  p
+    = f.fields_for :links do |link|
+      = render 'links/nested_form', f: link
+    .links
+      = link_to_add_association 'add link', f, :links, partial: 'links/nested_form'
+  p= f.submit 'Ask'
