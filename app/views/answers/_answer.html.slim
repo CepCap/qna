@@ -1,34 +1,26 @@
-= content_tag(:p, "#{answer.body} #{"- best answer" if answer.best?}",
-  class: "answer-id-#{answer.id}#{" best-answer" if answer.best?}", data: { answer_id: answer.id } )
+div data-answer-id='#{answer.id}' class='answer #{'best-answer' if answer.best?}'
+  div class='offset-md-1'
+    p class="best-text #{'hidden' unless answer.best?}"
+      ="Best answer: "
+    p class='body'= "#{answer.body}"
 
-.answer_links
-  p Links:
-  p
-    - answer.links.each do |link|
-      p class="link-id-#{link.id}"
-        -if link.to_gist?
-          = render partial: 'links/gist', locals: { link: link }
-        -else
-          = link_to link.name, link.url
-        = link_to 'Delete link', link_path(id: link.id), method: :delete, remote: true, class: "link-id-#{link.id}"
+  .links
+    = render partial: 'shared/links', locals: { resource: answer }
 
-- if answer.files.attached?
-  - answer.files.each do |file|
-    p
-      = link_to file.filename.to_s, url_for(file)
-      - if current_user&.author_of?(answer)
-        p= link_to 'Delete file', attachment_path(id: file.id), method: :delete, remote: true
+  .files
+    = render partial: 'shared/attached_files', locals: { resource: answer }
 
-div class='row answer-id-#{answer.id}#{" best-answer" if answer.best?}'
 
   - if current_user&.author_of?(answer)
-    p= link_to 'Edit', '#', class: "col-md-2 edit-answer-link", data: { answer_id: answer.id }
+    div class='offset-md-1'
+      .row
+        p class='col-md-1' = link_to 'Edit', '#', class: "edit-answer-link"
 
-    p= link_to 'Delete', answer, method: :delete, remote: true
+        p class='col-md-1' = link_to 'Delete', answer, method: :delete, remote: true, class: "delete-answer-link"
 
-    div class='hidden edit-answer' id="edit-answer-#{answer.id}" data-edit-id="#{answer.id}"
-      =render partial: 'answers/form', locals: { answer: answer, question: question }
+      div class='hidden edit-answer'
+        p=render partial: 'answers/form', locals: { answer: answer, question: question }
 
   - if current_user&.author_of?(question)
-    p= link_to 'Pick as best', pick_best_answer_path(answer, question_id: question.id),
-      class: "col-md-2 best-answer-link", method: :patch, remote: true
+    p class='offset-md-1 col-md-1' = link_to 'Pick as best', pick_best_answer_path(answer, question_id: question.id),
+    class: "best-answer-link", method: :patch, remote: true

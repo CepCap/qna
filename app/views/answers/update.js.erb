@@ -1,9 +1,10 @@
 $('.answer-errors').html("<%= render 'shared/errors', resource: answer %>");
 
 <% unless answer.errors.present? %>
-  $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').not('.edit-answer').html('<%= answer.body %>');
-  $("[data-edit-id=<%= answer.id%>]").addClass('hidden');
-  $(".edit-answer-link, [data-answer-id='<%= answer.id %>']").removeClass('hidden');
+  $('[data-answer-id="<%= answer.id %>"] .body').html('<p> <%= answer.body %> </p>');
+  $("[data-answer-id=<%= answer.id%>] .edit-answer").addClass('hidden');
+  $("[data-answer-id='<%= answer.id %>'] .edit-answer-link").removeClass('hidden');
 
-  $('[data-answer-id="<%= answer.id %>"]').not('.edit-answer-link').append('<%= render "link_to_files" %>');
+  $('[data-answer-id="<%= answer.id %>"] .links').append('<%= render partial: "shared/links", locals: { resource: answer } %>');
+  $('[data-answer-id="<%= answer.id %>"] .files').append('<%= render partial: "shared/attached_files", locals: { resource: answer } %>');
 <% end %>

@@ -1,6 +1,10 @@
 p= link_to 'Ask question', new_question_path
 
 div class='row offset-md-2 col-md-10'
-  div class='col-md-2' Question title
-  div class='col-md-8' Question body
-= render questions
+  h1 class='col-md-4' Question title
+  h5 class='col-md-8' Question body
+
+- questions.each do |question|
+  div class='row offset-md-2 col-md-10'
+    h3 class='col-md-4' = link_to question.title, question_path(question)
+    p class='col-md-8' = question.body
