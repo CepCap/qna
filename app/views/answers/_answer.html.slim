@@ -1,0 +1,26 @@
+div data-answer-id='#{answer.id}' class='answer #{'best-answer' if answer.best?}'
+  div class='offset-md-1'
+    p class="best-text #{'hidden' unless answer.best?}"
+      ="Best answer: "
+    p class='body'= "#{answer.body}"
+
+  .links
+    = render partial: 'shared/links', locals: { resource: answer }
+
+  .files
+    = render partial: 'shared/attached_files', locals: { resource: answer }
+
+
+  - if current_user&.author_of?(answer)
+    div class='offset-md-1'
+      .row
+        p class='col-md-1' = link_to 'Edit', '#', class: "edit-answer-link"
+
+        p class='col-md-1' = link_to 'Delete', answer, method: :delete, remote: true, class: "delete-answer-link"
+
+      div class='hidden edit-answer'
+        p=render partial: 'answers/form', locals: { answer: answer, question: question }
+
+  - if current_user&.author_of?(question)
+    p class='offset-md-1 col-md-1' = link_to 'Pick as best', pick_best_answer_path(answer, question_id: question.id),
+    class: "best-answer-link", method: :patch, remote: true
