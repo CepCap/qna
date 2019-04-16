@@ -10,7 +10,7 @@ feature 'User can pick best answer', %q{
   given!(:author_user)  { create(:user) }
   given!(:question)     { create(:question, author: author_user) }
   given!(:answer_list)  { create_list(:answer, 3, question: question) }
-  given!(:answer)       { create(:answer, question: question, author: user) }
+  given!(:answer)       { create(:answer, question: question, author: author_user) }
 
   scenario 'Unauthenticated user does not see "pick best" link' do
     visit question_path(question)
@@ -28,11 +28,11 @@ feature 'User can pick best answer', %q{
         scenario 'with no present best answer' do
           visit question_path(question)
 
-          within "div.answer-id-#{answer.id}" do
+          within "[data-answer-id='#{answer.id}']" do
             click_on 'Pick as best'
+            expect(page).to have_selector '.best-text', visible: true
           end
 
-          expect(page).to have_content "#{answer.body} - best answer"
         end
 
         scenario 'with present best answer' do
@@ -41,17 +41,19 @@ feature 'User can pick best answer', %q{
 
           visit question_path(question)
 
-          within "div.answer-id-#{answer.id}" do
+          within "[data-answer-id='#{answer.id}']" do
             click_on 'Pick as best'
+            expect(page).to have_selector '.best-text', visible: true
           end
 
-          expect(page).to_not have_content "previous best - best answer"
-          expect(page).to have_content "#{answer.body} - best answer"
+          within "[data-answer-id='#{best_answer.id}']" do
+            expect(page).to have_selector '.best-text', visible: false
+          end
         end
       end
     end
 
-    describe 'Non-author, ' do
+    describe 'Non-author' do
       scenario 'does not see "pick best" link' do
         expect(page).to_not have_content "Pick as best"
       end

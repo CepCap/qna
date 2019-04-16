@@ -1,5 +1,9 @@
-- if user_signed_in?
-  p= link_to 'Sign out', destroy_user_session_path, method: :delete
-  p= link_to 'Awards', awards_path
-- else
-  = link_to 'Sign in', new_user_session_path
+div class='nav row text-center'
+  p class='col-md-4 text-left' = link_to 'Home', questions_path
+  p class="notice col-md-3" = notice
+  p class="alert col-md-3" = alert
+  - if user_signed_in?
+    p class='col-md-1'= link_to 'Awards', awards_path
+    p class='col-md-1' = link_to 'Sign out', destroy_user_session_path, method: :delete
+  - else
+    p class='offset-md-1 col-md-1'= link_to 'Sign in', new_user_session_path

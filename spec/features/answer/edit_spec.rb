@@ -19,19 +19,19 @@ feature 'User can edit his answer', %q{
 
   describe 'Authenticated user', js: true do
 
-    describe 'Author user' do
+    describe 'Author' do
       background do
         sign_in(author_user)
         visit question_path(question)
       end
 
-      scenario 'edits his answer', js: true do
+      scenario 'edits his answer' do
         click_on 'Edit'
 
         within '.answers' do
           fill_in 'Body', with: 'edited answer'
           click_on 'Save'
-
+          
           expect(page).to_not have_content answer.body
           expect(page).to have_content 'edited answer'
           expect(page).to_not have_selector 'textarea'
@@ -61,6 +61,7 @@ feature 'User can edit his answer', %q{
           fill_in 'Body', with: ''
           click_on 'Save'
         end
+
         expect(page).to have_content "Body can't be blank"
       end
     end
