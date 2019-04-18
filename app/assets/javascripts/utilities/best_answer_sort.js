@@ -3,7 +3,5 @@ $(document).on('turbolinks:load', function() {
 });
 
 function sortByBest() {
-  var bestAnswer = $('.best-answer');
-
-  $(bestAnswer).insertBefore('.best-answer-placeholder');
+  $('.best-answer').insertBefore('.best-answer-placeholder');
 };

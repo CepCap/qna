@@ -11,7 +11,7 @@ feature 'User can view his awards', %q{
   given!(:award) { create(:award, question: question, user: awarded_user) }
 
   background do
-    award.image.attach(io: File.open("#{Rails.root}/storage/level1_bg.jpg"), filename: 'level1_bg.jpg')
+    award.image.attach(io: File.open("#{Rails.root}/storage/bg.jpg"), filename: 'bg.jpg')
   end
 
   scenario 'Awarded user wants to see his awards' do
@@ -20,6 +20,6 @@ feature 'User can view his awards', %q{
 
     expect(page).to have_content award.name
     expect(page).to have_content award.question.title
-    expect(page).to have_css("img[src*='level1_bg.jpg']")
+    expect(page).to have_css("img[src*='bg.jpg']")
   end
 end

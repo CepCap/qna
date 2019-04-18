@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :attachments, only: %i[destroy]
   resources :links, only: %i[destroy]
   resources :awards, only: %i[index]
+  resources :votes, only: %i[create]
 
   resources :questions do
-
     resources :answers, shallow: true, except: %i[index show] do
       patch :pick_best, on: :member
     end

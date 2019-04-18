@@ -20,7 +20,7 @@ feature 'User can add awards to question', %q{
     fill_in 'Body', with: 'Test body'
 
     fill_in 'Award name', with: 'Award!'
-    attach_file 'File', "#{Rails.root}/storage/level1_bg.jpg"
+    attach_file 'File', "#{Rails.root}/storage/bg.jpg"
 
     click_on 'Ask'
 
@@ -28,7 +28,7 @@ feature 'User can add awards to question', %q{
   end
 
   scenario 'Author of question picks best answer and answers author gets an award', js: true do
-    award.image.attach(io: File.open("#{Rails.root}/storage/level1_bg.jpg"), filename: 'level1_bg.jpg')
+    award.image.attach(io: File.open("#{Rails.root}/storage/bg.jpg"), filename: 'bg.jpg')
 
     sign_in(author)
     visit question_path(question)
