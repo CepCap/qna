@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe AttachmentsController, type: :controller do
-  describe 'DELETE #destroy' do
+  describe 'DELETE #destroy', js: true do
+
     let!(:user) { create(:user) }
     let!(:author) { create(:user) }
     let!(:question) {create(:question, author: author)}
+
     before do
       question.files.attach(io: File.open("#{Rails.root}/spec/rails_helper.rb"), filename: 'rails_helper.rb')
       question.files.attach(io: File.open("#{Rails.root}/spec/spec_helper.rb"), filename: 'spec_helper.rb')
@@ -12,7 +14,7 @@ RSpec.describe AttachmentsController, type: :controller do
 
     describe 'Unauthorized user' do
       it 'tries to delete an attachment' do
-        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count)
+        expect { delete :destroy, params: { id: question.files.first.id }, format: :js }.to_not change(question.files, :count)
       end
     end
 
@@ -22,7 +24,7 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'tries to delete an attachment' do
-        expect { delete :destroy, params: { id: question.files.first.id } }.to_not change(question.files, :count)
+        expect { delete :destroy, params: { id: question.files.first.id }, format: :js }.to_not change(question.files, :count)
       end
     end
 
@@ -32,7 +34,7 @@ RSpec.describe AttachmentsController, type: :controller do
       end
 
       it 'deletes an attachment' do
-        expect { delete :destroy, params: { id: question.files.first.id } }.to change(question.files, :count).by(-1)
+        expect { delete :destroy, params: { id: question.files.first.id }, format: :js }.to change(question.files, :count).by(-1)
       end
     end
   end
