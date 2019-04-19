@@ -23,6 +23,6 @@ module Voteable
   end
 
   def vote_count
-    Vote.sum(:vote_type)
+    votes.sum(:vote_type)
   end
 end
