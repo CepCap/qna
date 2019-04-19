@@ -4,7 +4,8 @@ div data-answer-id='#{answer.id}' class='answer #{'best-answer' if answer.best?}
       ="Best answer: "
     p class='body'= "#{answer.body}"
 
-  p= render partial: 'shared/votes', locals: { resource: answer }
+  - if current_user && !current_user.author_of?(question)
+    p= render partial: 'shared/votes', locals: { resource: answer }
 
   p= render partial: 'shared/links', locals: { resource: answer }
 

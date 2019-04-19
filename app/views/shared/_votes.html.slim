@@ -1,6 +1,6 @@
 div class='row votes'
   p class='offset-md-1 col-md-1'
-    = link_to 'Downvote', votes_path(vote: {vote_type: false,
+    = link_to 'Downvote', votes_path(vote: {vote_type: '-1',
                                      voteable_id: resource.id,
                                      voteable_type: resource.class.to_s  }),
                                      method: :post, remote: true, class: 'vote-link'
@@ -9,7 +9,7 @@ div class='row votes'
     = resource.vote_count
 
   p class='col-md-1'
-    = link_to 'Upvote', votes_path(vote: { vote_type: true,
+    = link_to 'Upvote', votes_path(vote: { vote_type: '1',
                                    voteable_id: resource.id,
                                    voteable_type: resource.class.to_s }),
                                    method: :post, remote: true, class: 'vote-link'

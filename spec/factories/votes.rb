@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :vote do
-    vote_type { true }
+    vote_type { 1 }
     user
     association :voteable, factory: :answer
   end

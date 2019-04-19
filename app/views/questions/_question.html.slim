@@ -2,13 +2,14 @@
   h1= question.title
   h5= question.body
 
-.offset-md-5
-  = render partial: 'shared/votes', locals: { resource: question }
+- if current_user && !current_user.author_of?(question)
+  .offset-md-5
+    = render partial: 'shared/votes', locals: { resource: question }
 
-div class='offset-md-6'
+.offset-md-6
   = render partial: 'shared/links', locals: { resource: question }
 
-div class='offset-md-6'
+.offset-md-6
   = render partial: 'shared/attached_files', locals: { resource: question }
 
   div class='row offset-md-6'

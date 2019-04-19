@@ -16,15 +16,13 @@ module Voteable
             old_vote.update(vote_type: new_vote_type)
           end
         else
-          vote = votes.create(vote_type: new_vote_type)
-          vote.user = user
-          vote.save
+          vote = votes.create(vote_type: new_vote_type, user: user)
         end
       end
     end
   end
 
   def vote_count
-    votes.where(vote_type: true).count - votes.where(vote_type: false).count
+    Vote.sum(:vote_type)
   end
 end
