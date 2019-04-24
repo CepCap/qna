@@ -31,10 +31,10 @@ feature 'User can edit his answer', %q{
         within '.answers' do
           fill_in 'Body', with: 'edited answer'
           click_on 'Save'
-          
+
           expect(page).to_not have_content answer.body
           expect(page).to have_content 'edited answer'
-          expect(page).to_not have_selector 'textarea'
+          expect(page).to_not have_css 'answer-form'
         end
       end
 
@@ -50,7 +50,7 @@ feature 'User can edit his answer', %q{
           expect(page).to have_link 'spec_helper.rb'
           expect(page).to_not have_content answer.body
           expect(page).to have_content 'edited answer'
-          expect(page).to_not have_selector 'textarea'
+          expect(page).to_not have_css 'answer-form'
         end
       end
 

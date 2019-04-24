@@ -22,7 +22,7 @@ RSpec.describe VotesController, type: :controller do
       scenario 'votes for the first time and creates new vote' do
         expect {
           post :create, params: { vote:  vote_params  }, format: :json
-        }.to change(Vote.all, :count).by(1)
+        }.to change(Vote, :count).by(1)
       end
 
       context 'existing vote' do

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :links, only: %i[destroy]
   resources :awards, only: %i[index]
   resources :votes, only: %i[create]
+  resources :comments, only: %i[create]
 
   resources :questions do
     resources :answers, shallow: true, except: %i[index show] do
@@ -13,4 +14,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'questions#index'
+
+  mount ActionCable.server => '/cable'
 end

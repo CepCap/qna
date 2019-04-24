@@ -5,6 +5,8 @@ class QuestionsController < ApplicationController
   expose :question
   expose :answer, -> { Answer.new }
 
+  after_action :publish_question, only: [:create]
+
   def new
     question.links.new
     question.build_award
@@ -12,6 +14,8 @@ class QuestionsController < ApplicationController
 
   def show
     answer.links.new
+    @comment = Comment.new
+    gon.question_author_id = question.author.id
   end
 
   def create
@@ -45,6 +49,17 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def publish_question
+    return if @question.errors.any?
+    ActionCable.server.broadcast(
+      'questions',
+      ApplicationController.render(
+        partial: 'questions/add_question',
+        locals: { question: @question }
+      )
+    )
+  end
 
   def question_params
     params.require(:question).permit(:title, :body,
