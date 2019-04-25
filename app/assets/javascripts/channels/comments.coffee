@@ -1,4 +1,4 @@
-App.comments = App.cable.subscriptions.create "CommentsChannel",
+App.comments = App.cable.subscriptions.create { channel: "CommentsChannel", question_id: gon.question_id },
   connected: ->
     @perform 'follow',
   received: (data) ->

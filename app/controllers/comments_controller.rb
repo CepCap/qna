@@ -13,10 +13,18 @@ class CommentsController < ApplicationController
 
   def publish_comment
     return if @comment.errors.any?
-    ActionCable.server.broadcast('comments', @comment.to_json)
+    ActionCable.server.broadcast("question_#{find_question}", @comment.to_json)
+  end
+
+  def find_question
+    if commentable.is_a? Answer
+      commentable.question.id
+    else
+      commentable.id
+    end
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :commentable_type, :commentable_id)
+    params.require(:comment).permit(:body)
   end
 end

@@ -1,4 +1,4 @@
-App.answers = App.cable.subscriptions.create "AnswersChannel",
+App.answers = App.cable.subscriptions.create { channel: "AnswersChannel", question_id: gon.question_id },
   connected: ->
     @perform 'follow',
 
