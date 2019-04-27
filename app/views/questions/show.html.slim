@@ -3,6 +3,10 @@
 
 .best-answer-placeholder
 
+div class="comments-question-#{question.id}"
+  p= render question.comments
+p= render template: 'comments/new', locals: { resource: question }
+
 .answers
   =render question.answers
 

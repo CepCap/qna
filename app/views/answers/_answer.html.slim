@@ -24,3 +24,7 @@ div data-answer-id='#{answer.id}' class='answer #{'best-answer' if answer.best?}
   - if current_user&.author_of?(question)
     p class='offset-md-1 col-md-1' = link_to 'Pick as best', pick_best_answer_path(answer, question_id: question.id),
     class: "best-answer-link", method: :patch, remote: true
+
+  div class="comments-answer-#{answer.id}"
+    p= render answer.comments
+  p= render template: 'comments/new', locals: { resource: answer }

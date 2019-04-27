@@ -21,6 +21,9 @@ gem 'devise'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'cocoon'
+gem 'skim'
+gem 'gon'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

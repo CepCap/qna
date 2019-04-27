@@ -1,0 +1,22 @@
+- if gon.user_id != @answer.author_id
+  div.answer
+    div.row.offset-md-1
+      - if @answer.best
+        .best-text
+          p Best answer:
+      p.body="#{@answer.body}"
+
+    .row.votes
+      .offset-md-1.col-md-1
+        a.vote-link data-remote="true" rel="nofollow" data-method="post" href="/votes?vote%5Bvote_type%5D=-1&amp;vote%5Bvoteable_id%5D=#{@answer.id}&amp;vote%5Bvoteable_type%5D=Answer" Downvote
+      .col-md-1
+        .vote-result
+          -if gon.answer_vote_count
+            gon.answer_vote_count
+          -else
+            p 0
+        a.vote-link data-remote="true" rel="nofollow" data-method="post" href="/votes?vote%5Bvote_type%5D=1&amp;vote%5Bvoteable_id%5D=#{@answer.id}&amp;vote%5Bvoteable_type%5D=Answer" Upvote
+
+    - if gon.user_id == gon.question_author_id
+      .offset-md-1.col-md-1
+      a.best-answer-link data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/pick_best?question_id=#{gon.question_id}">Pick as best</a>
