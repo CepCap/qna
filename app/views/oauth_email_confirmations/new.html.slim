@@ -1,0 +1,8 @@
+h1
+  | Please enter your email for confirmation
+p= form_with url: oauth_email_confirmations_path do |f|
+  = f.hidden_field(:provider, value: params['provider'])
+  = f.hidden_field(:uid, value: params['uid'])
+  = f.label :email, 'Email'
+  = f.text_field :email
+  = f.submit 'Send email'
