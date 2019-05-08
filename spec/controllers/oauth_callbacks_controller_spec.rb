@@ -12,8 +12,10 @@ RSpec.describe OauthCallbacksController, type: :controller do
       let(:oauth_data) { OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: nil }) }
 
       it 'redirects to email confirmation' do
+        allow(request.env).to receive(:[]).and_call_original
+        allow(request.env).to receive(:[]).with('omniauth.auth').and_return(oauth_data)
         get :github
-        expect(response).to redirect_to new_oauth_email_confirmation_path(provider: oauth_data.provider, uid: oauth_data.uid)
+        expect(response).to redirect_to new_oauth_email_confirmation_path
       end
     end
 

@@ -31,7 +31,6 @@ feature 'User can authenticate via oauth providers', %q{
       fill_in 'Email', with: 'test@email.com'
       click_on 'Send email'
 
-      expect(page).to have_content 'Your account has been linked to social media!'
       expect(page).to have_link 'Sign out'
     end
 

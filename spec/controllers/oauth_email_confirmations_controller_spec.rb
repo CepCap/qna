@@ -23,9 +23,9 @@ RSpec.describe OauthEmailConfirmationsController, type: :controller do
         allow(User).to receive(:find_for_oauth).and_return(user)
       end
 
-      it 'redirects to login' do
+      it 'redirects to root' do
         post :create
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to redirect_to root_path
       end
     end
 

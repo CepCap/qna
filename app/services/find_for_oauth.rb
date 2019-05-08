@@ -1,6 +1,7 @@
 module Services
   class FindForOauth
     attr_reader :auth
+    attr_reader :confirm
 
     def initialize(auth)
       @auth = auth
@@ -17,8 +18,12 @@ module Services
         user.authorizations.create(provider: auth.provider, uid: auth.uid)
       else
         password = Devise.friendly_token[0, 20]
-        user = User.create(email: email, password: password, password_confirmation: password)
-        user.authorizations.create(provider: auth.provider, uid: auth.uid)
+        user = User.new(email: email, password: password, password_confirmation: password)
+        if email
+          user.skip_confirmation! unless auth.confirm
+          user.save!
+          user.authorizations.create!(provider: auth.provider, uid: auth.uid)
+        end
       end
       user
     end
