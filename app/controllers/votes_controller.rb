@@ -3,6 +3,8 @@ class VotesController < ApplicationController
 
   expose :voteable, -> { Object.const_get(vote_params[:voteable_type]).find(vote_params[:voteable_id]) }
 
+  authorize_resource
+
   def create
     voteable.voting(current_user, vote_params[:vote_type])
     respond_to do |format|
