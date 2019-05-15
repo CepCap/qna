@@ -6,6 +6,8 @@ class AnswersController < ApplicationController
 
   after_action :publish_answer, only: [:create]
 
+  authorize_resource
+
   def create
     @answer = question.answers.new(answer_params)
     @answer.author = current_user
@@ -30,6 +32,7 @@ class AnswersController < ApplicationController
 
   def pick_best
     if current_user.author_of?(question)
+      authorize! :pick_best, answer
       answer.choose_best
     else
       redirect_to answer.question, notice: "You're not an author of this question"
