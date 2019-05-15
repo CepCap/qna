@@ -21,11 +21,11 @@ class Ability
     guest_abilities
     can :create, :all
     cannot [:create, :update, :destroy], Award
-    can [:update, :destroy], [Question, Answer], author: user
-    can [:update, :destroy], Comment, user: user
-    can [:update, :destroy], Link, linkable: { author: user }
+    can [:update, :destroy], [Question, Answer], author_id: user.id
+    can [:update, :destroy], Comment, user_id: user.id
+    can [:update, :destroy], Link, linkable: { author_id: user.id }
     can :pick_best, Answer
-    cannot :pick_best, Answer, author: user
+    cannot :pick_best, Answer, author_id: user.id
   end
 
   def admin_abilities
