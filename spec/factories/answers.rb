@@ -3,7 +3,7 @@ FactoryBot.define do
     body { "MyText" }
     best { false }
     question
-    association :author, factory: :user
+    association :user, factory: :user
 
     trait :invalid do
       body { nil }

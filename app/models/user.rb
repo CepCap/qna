@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:github, :vkontakte]
 
-  has_many :questions, class_name: 'Question', foreign_key: :author_id
-  has_many :answers, class_name: 'Answer', foreign_key: :author_id
+  has_many :questions
+  has_many :answers
   has_many :awards
   has_many :authorizations
 
@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   def author_of?(instance)
-    self.id == instance.author_id
+    self.id == instance.user_id
   end
 
   def self.find_for_oauth(auth)
