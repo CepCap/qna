@@ -39,7 +39,7 @@ describe 'Profiles API', type: :request do
 
     context 'authorized' do
       let!(:users) { create_list(:user, 3) }
-      let!(:oauth_user) { create(:user) }
+      let!(:oauth_user) { users.first }
       let(:users_response) { json['users'] }
       let(:access_token) { create(:access_token, resource_owner_id: oauth_user.id) }
 
@@ -50,7 +50,7 @@ describe 'Profiles API', type: :request do
       end
 
       it 'returns list of user profiles' do
-        expect(users_response.size).to eq 3
+        expect(users_response.size).to eq 2
       end
 
       it 'does not return initial user' do

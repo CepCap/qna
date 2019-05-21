@@ -1,6 +1,8 @@
 class Api::V1::AnswersController < Api::V1::BaseController
   expose :question, -> { Question.find(params[:question_id]) }
   expose :answer, -> { Answer.find(params[:id]) }
+  
+  authorize_resource
 
   def index
     render json: question.answers

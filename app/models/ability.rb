@@ -25,6 +25,7 @@ class Ability
     can [:update, :destroy], Comment, user_id: user.id
     can [:update, :destroy], Link, linkable: { author_id: user.id }
     can :pick_best, Answer
+    can :me, User, id: user.id
     cannot :pick_best, Answer, author_id: user.id
   end
 
