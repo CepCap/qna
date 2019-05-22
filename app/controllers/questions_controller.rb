@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   def show
     answer.links.new
     @comment = Comment.new
-    gon.question_author_id = question.author.id
+    gon.question_author_id = question.user.id
     gon.question_id = question.id
   end
 

@@ -18,9 +18,9 @@ User.create(email: user[:email], password: user[:password],
 
 5.times do |i|
   question = Question.create(title: "#{i}. question:", body: "How to #{i}",
-                             author: [User.first, User.second].sample)
+                             user: [User.first, User.second].sample)
   3.times do |e|
     Answer.create(body: "#{e} answer", question: question,
-                  author: [User.first, User.second].sample)
+                  user: [User.first, User.second].sample)
   end
 end

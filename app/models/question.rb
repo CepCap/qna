@@ -4,7 +4,7 @@ class Question < ApplicationRecord
   include Voteable
   include Commentable
 
-  belongs_to :author, class_name: 'User', foreign_key: :author_id
+  belongs_to :user
 
   has_many :links, dependent: :destroy, as: :linkable
 
