@@ -27,6 +27,7 @@ class Ability
     can :pick_best, Answer
     can :me, User, id: user.id
     cannot :pick_best, Answer, author_id: user.id
+    can [:subscribe, :unsubscribe], Question
   end
 
   def admin_abilities

@@ -1,0 +1,4 @@
+$('.unsubscribe').html('<%= link_to "Subscribe", subscribe_question_path(question), method: :post, remote: true %>');
+$('.unsubscribe').addClass('subscribe');
+$('.unsubscribe').removeClass('unsubscribe');
+$('.subscribe-notification').html('Unsubscribed!');

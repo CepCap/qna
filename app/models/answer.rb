@@ -12,6 +12,8 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
+  after_create :email_subscribers
+
   def choose_best
     previous_best = question.answers.find_by(best: true)
     ActiveRecord::Base.transaction do
@@ -19,5 +21,11 @@ class Answer < ApplicationRecord
       user.awards << question.award if question.award.present?
       previous_best.update!(best: false) if previous_best
     end
+  end
+
+  private
+
+  def email_subscribers
+    SubscriptionJob.perform_later(question)
   end
 end

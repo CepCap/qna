@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.create(question_params)
     if @question.save
+      current_user.subscribe(@question)
       redirect_to @question, notice: "Your question successfully created."
     else
       render :new
@@ -49,6 +50,16 @@ class QuestionsController < ApplicationController
     else
       render :show
     end
+  end
+
+  def subscribe
+    authorize! :subscribe, question
+    current_user.subscribe(question)
+  end
+
+  def unsubscribe
+    authorize! :unsubscribe, question
+    current_user.unsubscribe(question)
   end
 
   private
