@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :subscribed_users, through: :subscriptions, source: :user
   has_one :award, dependent: :destroy
   include Voteable
   include Commentable
@@ -20,12 +21,6 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   scope :created_today, -> { Question.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
-
-  def subscribed_users
-    users = []
-    subscriptions.each { |el| users << el.user }
-    users
-  end
 
   private
 

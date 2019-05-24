@@ -52,16 +52,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def subscribe
-    authorize! :subscribe, question
-    current_user.subscribe(question)
-  end
-
-  def unsubscribe
-    authorize! :unsubscribe, question
-    current_user.unsubscribe(question)
-  end
-
   private
 
   def publish_question

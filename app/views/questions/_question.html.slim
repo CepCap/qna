@@ -15,9 +15,9 @@
 .offset-md-4
   -if can? :subscribe, question
     - if current_user.subscribed?(question)
-      .unsubscribe = link_to 'Unsubscribe', unsubscribe_question_path(question), method: :delete, remote: true
+      .unsubscribe = link_to 'Unsubscribe', subscription_path(question), method: :delete, remote: true
     -else
-      .subscribe = link_to 'Subscribe', subscribe_question_path(question), method: :post, remote: true
+      .subscribe = link_to 'Subscribe', subscriptions_path(question), method: :post, remote: true
     .subscribe-notification
 
   div class='row offset-md-6'

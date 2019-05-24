@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
 
   resources :attachments, only: %i[destroy]
+  resources :subscriptions, only: %i[create destroy]
   resources :links, only: %i[destroy]
   resources :awards, only: %i[index]
   resources :votes, only: %i[create]
@@ -19,9 +20,6 @@ Rails.application.routes.draw do
     resources :answers, shallow: true, except: %i[index show] do
       patch :pick_best, on: :member
     end
-
-    post :subscribe, on: :member
-    delete :unsubscribe, on: :member
   end
 
   namespace :api do
