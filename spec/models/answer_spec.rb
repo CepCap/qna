@@ -10,7 +10,7 @@ RSpec.describe Answer, type: :model do
     let!(:question) { create(:question) }
     let!(:previous_best) { create(:answer, best: true, question: question) }
     let!(:user) { create(:user) }
-    let!(:answer) { create(:answer, question: question, author: user) }
+    let!(:answer) { create(:answer, question: question, user: user) }
     let!(:award) { create(:award, question: question) }
 
     describe 'choosing best answer' do
@@ -29,6 +29,19 @@ RSpec.describe Answer, type: :model do
 
     it 'should give award to author of answer' do
       expect { answer.choose_best }.to change(user.awards, :count).by(1)
+    end
+  end
+
+  describe '#email_subscribers' do
+    it 'calls SubscriptionJob#perform_later' do
+      question = create(:question)
+      user = create(:user)
+      user.subscribe(question)
+
+      answer = build(:answer, question: question, user: user)
+
+      expect(SubscriptionJob).to receive(:perform_later).with(question)
+      answer.save
     end
   end
 end
