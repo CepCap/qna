@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :comments, only: %i[create]
   resources :oauth_email_confirmations, only: %i[new create]
 
+  resources :searches, only: %i[index create] do
+    get :result, on: :collection
+  end
+
   resources :questions do
     resources :answers, shallow: true, except: %i[index show] do
       patch :pick_best, on: :member

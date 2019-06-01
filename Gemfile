@@ -34,6 +34,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'oj'
 gem 'whenever', require: false
+gem 'mysql2', '~> 0.5.2'
+gem 'thinking-sphinx'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

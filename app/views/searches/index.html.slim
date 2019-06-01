@@ -1,0 +1,9 @@
+.search
+  = form_with url: searches_path, local: true do |f|
+    = f.label :query, 'Search'
+    = f.text_field :query
+
+    = f.label :type, 'Search type'
+    = f.select :type, options_for_select(Services::Search::TYPES)
+
+    p= f.submit 'Submit'
