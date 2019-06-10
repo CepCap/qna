@@ -30,7 +30,12 @@ gem 'omniauth-vkontakte'
 gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers', '~> 0.10'
+gem 'sidekiq'
+gem 'sinatra', require: false
 gem 'oj'
+gem 'whenever', require: false
+gem 'mysql2', '~> 0.5.2'
+gem 'thinking-sphinx'
 gem 'mini_racer'
 
 group :development, :test do

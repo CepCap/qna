@@ -1,5 +1,7 @@
 class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :subscribed_users, through: :subscriptions, source: :user
   has_one :award, dependent: :destroy
   include Voteable
   include Commentable
@@ -14,6 +16,15 @@ class Question < ApplicationRecord
   has_many_attached :files
 
   after_save { id = self.id }
+  after_create :subscribe_author
 
   validates :title, :body, presence: true
+
+  scope :created_today, -> { Question.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
+
+  private
+
+  def subscribe_author
+    user.subscribe(self)
+  end
 end
