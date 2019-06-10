@@ -76,8 +76,8 @@ Rails.application.configure do
     :port               => 587,
     :domain             => 'gmail.com',
     :authentication     => :plain,
-    :user_name          => Rails.application.credentials[:mailer][:host],
-    :password           => Rails.application.credentials[:mailer][:password]
+    :user_name          => Rails.application.credentials[:mailing][:host],
+    :password           => Rails.application.credentials[:mailing][:password]
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
