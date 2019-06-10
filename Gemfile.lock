@@ -446,6 +446,7 @@ DEPENDENCIES
   sidekiq
   sinatra
   skim
+  slim
   slim-rails
   spring
   spring-watcher-listen (~> 2.0.0)
