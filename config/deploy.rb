@@ -3,6 +3,7 @@ lock "~> 3.11.0"
 
 set :application, "qna"
 set :repo_url, "git@github.com:CepCap/qna.git"
+set :rvm_ruby_version, '2.4.1'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

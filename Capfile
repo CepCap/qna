@@ -7,6 +7,7 @@ require "capistrano/rvm"
 require "capistrano/bundler"
 require "capistrano/rails"
 require "capistrano/passenger"
+require 'capistrano/ssh_doctor'
 
 # Load the SCM plugin appropriate to your project:
 #

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/capistrano-plugins/capistrano-ssh-doctor.git
+  revision: 0e5de7c1c4d987c16adeaea296f0e863b9cbec6f
+  specs:
+    capistrano-ssh-doctor (1.0.0)
+      capistrano (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -157,6 +164,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.7.0)
       launchy (~> 2.2)
+    libv8 (7.3.492.27.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -172,6 +180,8 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
+    mini_racer (0.2.6)
+      libv8 (>= 6.9.411)
     minitest (5.11.3)
     msgpack (1.2.10)
     multi_json (1.13.1)
@@ -357,6 +367,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capistrano-rvm
+  capistrano-ssh-doctor!
   capybara (>= 2.15)
   capybara-email
   chromedriver-helper
@@ -372,6 +383,7 @@ DEPENDENCIES
   launchy
   letter_opener
   listen (>= 3.0.5, < 3.2)
+  mini_racer
   oj
   omniauth
   omniauth-github
@@ -398,4 +410,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.16.6
+   2.0.1

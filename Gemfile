@@ -31,6 +31,7 @@ gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers', '~> 0.10'
 gem 'oj'
+gem 'mini_racer'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -46,6 +47,7 @@ group :development do
   gem 'letter_opener'
 
   gem 'capistrano', require: false
+  gem 'capistrano-ssh-doctor', git: 'https://github.com/capistrano-plugins/capistrano-ssh-doctor.git'
   gem 'capistrano-rbenv'
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
