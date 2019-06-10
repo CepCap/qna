@@ -56,7 +56,7 @@ group :development do
   gem 'capistrano-ssh-doctor', git: 'https://github.com/capistrano-plugins/capistrano-ssh-doctor.git'
   gem 'capistrano-rbenv'
   gem 'capistrano-rvm'
-  gem 'capistrano-passenger'
+  # gem 'capistrano-passenger'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
 end
