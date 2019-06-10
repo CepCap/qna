@@ -37,6 +37,7 @@ gem 'whenever', require: false
 gem 'mysql2', '~> 0.5.2'
 gem 'thinking-sphinx'
 gem 'mini_racer'
+gem 'aws-sdk-s3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
