@@ -39,6 +39,7 @@ gem 'mysql2', '~> 0.5.2'
 gem 'thinking-sphinx'
 gem 'mini_racer'
 gem 'aws-sdk-s3'
+gem 'unicorn'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -61,6 +62,7 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :test do
