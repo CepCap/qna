@@ -40,6 +40,7 @@ gem 'thinking-sphinx'
 gem 'mini_racer'
 gem 'aws-sdk-s3'
 gem 'unicorn'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

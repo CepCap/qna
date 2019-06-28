@@ -5,7 +5,8 @@ div class='row offset-md-2 col-md-10'
   h1 class='col-md-4' Question title
   h5 class='col-md-8' Question body
 
-  div class='row offset-md-2 col-md-10 questions-list'
-    - questions.each do |question|
-      h3 class='col-md-4' = link_to question.title, question_path(question)
-      p class='col-md-8' = question.body
+  -cache collection_cache_key_for :question do
+    div class='row offset-md-2 col-md-10 questions-list'
+      - questions.each do |question|
+        h3 class='col-md-4' = link_to question.title, question_path(question)
+        p class='col-md-8' = question.body
